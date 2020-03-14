@@ -1,0 +1,35 @@
+import pygame
+pygame.init()
+player_img = pygame.image.load('Ihuw.gif')
+WIDTH = 640
+HEIGHT = 480
+screen = pygame.display.set_mode((640,480))
+background = pygame.Surface(screen.get_size())
+pygame.display.set_caption("My Game")
+BLUE = (0,0,255)
+ORANGE = (255,140,0)
+background.fill(BLUE)
+background = background.convert()
+screen.blit(background, (0,0))
+clock = pygame.time.Clock()
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((50, 50))
+        self.image = player_img
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        
+all_sprites = pygame.sprite.Group()
+player = Player()
+all_sprites.add(player)
+running = True
+FPS = 30
+playtime = 0.0
+
+while running:
+    milliseconds = clock.tick(FPS)
+    playtime += milliseconds / 1000.0
+    player.update()
+    player.draw(screen)
+    pygame.display.flip()
